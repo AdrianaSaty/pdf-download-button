@@ -1,10 +1,7 @@
 # pdf-download-button
 Simple project just to create a button that downloads a pdf from a URL
 
-
-
-https://github.com/AdrianaSaty/pdf-download-button/assets/5349412/fa69a860-ef11-4853-af0f-471da6f088cd
-
+![Screen-Recording-2024-05-17-at-11 11 34](https://github.com/AdrianaSaty/pdf-download-button/assets/5349412/1e4ba694-44fd-4af9-bc96-0e3e67bf2151)
 
 
 ## 🔧 Instalation
