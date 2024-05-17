@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download PDF</title>
+</head>
+
+<body>
+    <button id="downloadBtn">Download PDF</button>
+
+    <script>
+        document.getElementById('downloadBtn').addEventListener('click', async () => {
+            try {
+                const response = await fetch('http://localhost:3000/getPDF');
+                const data = await response.json();
+                console.log(data)
+                if (!data.base64) {
+                    throw new Error('Base64 data is undefined');
+                }
+
+                let pdfBase64 = data.base64;
+
+                // Log para depuração
+                console.log('Base64 data received:', pdfBase64);
+
+                // Certifique-se de que a string Base64 está limpa
+                pdfBase64 = pdfBase64.replace(/[\r\n]+/g, '');
+
+                // Converter Base64 para Blob
+                const byteCharacters = atob(pdfBase64);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                const blob = new Blob([byteArray], { type: 'application/pdf' });
+
+                // Criar um link para download
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'downloaded.pdf';
+                link.click();
+                URL.revokeObjectURL(link.href);
+            } catch (error) {
+                console.error('Error downloading PDF:', error);
+            }
+        });
+    </script>
+</body>
+
+</html>
